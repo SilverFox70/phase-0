@@ -20,7 +20,7 @@ I wanted to research other sites and really look at how they were layed out.  I 
 
 ##Which parts of the challenge did you enjoy and which parts did you find tedious?
 
-I wouldn't say it was tedious, but I did quite a bit of reading surrounding the principles of good layout and design, and that can get a little dry at times.  The actual process of wireframing itself was very engaging and I enjoyed that thoroughly.
+I wouldn't say it was tedious, but I did quite a bit of reading surrounding the principles of good layout and design, and that can get a little dry at times.  The actual process of wireframing itself was very engaging and I enjoyed that thoroughly.  It will be interesting to parse these wireframes into actual layouts.
 
-![Alt "my wireframe image"](/imgs/wireframe-index.PNG "wireframe-index")
+![Alt "my wireframe image"](imgs/wireframe-index.PNG "wireframe-index")
 ![Alt "my blog index wireframe"](imgs/blog-index-wireframe.PNG "blog-wireframe-index")
