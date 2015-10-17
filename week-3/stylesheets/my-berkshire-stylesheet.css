@@ -58,3 +58,53 @@ footer p {
 li {
     margin:1.5em;
 }
+
+
+/*Reflection Section Below
+
+What is important to know when linking an external file (like a stylesheet) to an HTML file?
+
+    The link has to include what kind of link it is (rel attribute), what type of format it is (type attribute), 
+    and the path to the file itself.  You can include several links to different stylesheets if you want.  If
+    the path is incorrect, then none of your stylesheet css information will work to format you HTML page.
+    The same is true if you are linking to images, although in that case you aren't using <link> to access the
+    resource, but rather <img>.  
+
+What tricks did you use to help you with positioning? How hard was it to get the site as you wanted it?
+
+    This site was so straight forward that we really didn't need to position or size elements themselves, but 
+    rather just format the text within the elements using text-align, font-size, and margin.  I also went
+    back and added in some line-height to make it look a bit more like the actual site.  I learned about the
+    -webkit-column-count property which made making the links appear in two columns super easy.  If I hadn't
+    learned that trick, I suspect it would have taken a lot more time to put together.  I noticed that in the
+    actual site, they used a table, which is what I suspected.  But takes a lot more HTML to make it work,
+    in my opinion.
+
+
+What CSS did you use to modify the element style (like size, color, etc.)
+
+    We used the usual suspects of color, background-color, font-size to style the content of each element.
+    Color changes the font's color, background changes the background color of the element, and font-size
+    determines the font size of the letters.  In retrospect, I would have made all of the font-sizes based
+    on em's to make it more flexible across a range of screen sizes while preserving the relative sizes
+    of fonts to one another.
+
+
+Did you modify the HTML to include classes or ids? If so, which did you chose and why? If you didn't, 
+how would you know which one to add to your HTML?
+
+    We used a combination of classes and ids.  I think that we could have done a better job of economizing 
+    our use of specific tags like that to make the css easier to maintain.  A part of that arose from us
+    tackling the challenge a piece at a time instead of looking at the whole picture first.  I think I
+    have to find a better way of envisioning the whole site before diving into creating classes and ids.
+    I think the goal should be to make the css as re-useable as possible.
+
+When you compared your site to the actual code base, which do you think had cleaner code that followed best 
+practices and why?
+
+    The first thing i notice is that they put all of their styling directly into the HTML, which makes it 
+    ugly and hard to read, not to mention difficult to maintain.  I think our HTML structure is better, 
+    more flexible and expandable, and more semantically useful than the actual code.  I would say that 
+    their approach was one of sheer brute force to make it look the way they wanted.
+*/
+
