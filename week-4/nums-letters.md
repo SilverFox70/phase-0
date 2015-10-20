@@ -25,3 +25,10 @@ p 365*24
 p (8*365*24*60) + (2*366*24*60) #Since in almost every decade there will be two leap years
 ```
 
+##Release 5
+
+[Defining Variables](https://github.com/SilverFox70/phase-0/blob/master/week-4/defining-variables.rb) 
+
+[Simple String Methods](https://github.com/SilverFox70/phase-0/blob/master/week-4/simple-string.rb)
+
+[Local Variables and Basic Arithmetical Operations](https://github.com/SilverFox70/phase-0/blob/master/week-4/basic-math.rb)
