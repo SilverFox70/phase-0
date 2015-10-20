@@ -12,5 +12,13 @@
 
 # Your Solution Below
 def largest_integer(list_of_nums)
-  list_of_nums.empty? ? return : list_of_nums.max
+ list_of_nums.empty? ? return : list_of_nums.max
 end
+
+# My verbose solution below
+# def largest_integer(list_of_nums)
+  # return if list_of_nums.empty?
+  # max = list_of_nums[0]
+  # list_of_nums.each {|x| max = x if x > max}
+  # max
+# end 	
