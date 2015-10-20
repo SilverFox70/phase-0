@@ -53,4 +53,10 @@ type: rspec rspec_filename.rb
 
 This has all been very easy review for me a this point.
 
+##Release 4.3.1 and 4.3.2
+
+https://github.com/SilverFox70/phase-0/blob/master/week-4/address/my_solution.rb
+
+https://github.com/SilverFox70/phase-0/blob/master/week-4/math/my_solution.rb
+
 =end
