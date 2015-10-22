@@ -15,3 +15,11 @@ def smallest_integer(list_of_nums)
   list_of_nums.empty? ? return : list_of_nums.sort!
   list_of_nums[0]
 end
+
+# Alternative solution
+# def smallest_integer(list_of_nums)
+	# sm = list_of_nums[0]
+	# list.each do |x|
+		# sm = x if x < sm
+	# end
+# end
