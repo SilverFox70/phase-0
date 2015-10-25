@@ -1,3 +1,29 @@
-html {
-background-color: red
+header {
+    background-color: lightgrey;
+    padding: 2%;
 }
+
+footer {
+    background-color: lightgrey;
+    padding: 2%;
+}
+
+summary {
+    background-color: lightcyan;
+}
+
+article {
+    padding: 2%;
+    margin: 2%;
+}
+
+details {
+    background-color: gray;
+    
+}
+
+section {
+    -webkit-column-count: 2;
+    font-family: Verdana, sans-serif;
+}
+
