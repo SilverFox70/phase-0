@@ -5,7 +5,7 @@
 i_want_pets = ["I", "want", 3, "pets", "but", "only", "have", 2]
 my_family_pets_ages = {"Evi" => 6, "Ditto" => 3, "Hoobie" => 3, "George" => 12, "Bogart" => 4, "Poly" => 4, "Annabelle" => 0}
 
-# Person 1's solution
+# Person 1's solution: Chris Gomes
 def my_array_finding_method(source, thing_to_find)
   result = [] # result is the output array
   source.each do |word|
