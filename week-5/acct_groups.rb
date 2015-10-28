@@ -95,7 +95,6 @@ end
 # of data.
 def create_group_hash(group_names, groups)
   group_hash = Hash.new
-  e_log("INSIDE OF CREATE_GROUP_HASH -------------------", group_names,groups)
   for i in 0..group_names.length-1
     group_hash[group_names[i]] = groups[i]
   end
@@ -117,34 +116,45 @@ def extract_names(str)
 	final_list.shuffle!
 end
 
+##
+# Given the raw data of a student list as captured off of the Canvas
+# website, this method call other methods which extract the student
+# names, shuffle their order, determine an optimal group size
+# place students into named groups and then return a hash where the
+# KEYs are the group names and the VALUEs are arrays containing a
+# list of students in that group.
 def create_accountability_groups(raw_student_list)
   student_roster = extract_names(raw_student_list)
-  # e_log(student_roster)
   number_of_students = student_roster.length
-  # e_log("number_of_students", number_of_students)
   divisor = find_optimal_divisor(number_of_students)
-  # e_log("divisor", divisor)
   num_of_groups = group_count(number_of_students, divisor)
-  # e_log("number of groups", num_of_groups)
   group_names = get_group_names(num_of_groups)
   groups = build_groups(num_of_groups, student_roster, divisor)
-  e_log("GROUPS", groups)
   accountability_groups = create_group_hash(group_names, groups)
-  accountability_groups
+  # accountability_groups
 end
 
+##
+# A convenience method for displaying the various groups and their
+# members on the screen
 def display_accountability_groups(accountability_groups)
 	accountability_groups.each {|k, v| puts "#{k} : #{v}"}
 end
 
+##
+# Returns a list of all files in the directory specified by filepath
 def get_file_list(filepath)
   Dir.entries(filepath)
 end 
 
+##
+# Will display all files within the directory specified by filepath
 def display_file_list(filepath)
   get_file_list(filepath).each {|entry| puts entry}	
 end
 
+##
+# Takes a hash as an argument and stores that hash in a .txt file
 def save_file(acct_groups)
   f = File.new("data_files/group_assignment.txt", "r+") 
   	acct_groups.each {|k, v| puts f.write("#{k} : #{v} \n")}
