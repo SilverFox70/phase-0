@@ -56,10 +56,15 @@ def build_groups(num_of_groups, student_roster, divisor)
   group_array = []
   for i in 0..num_of_groups - 1
   	index = i
+  	group_max = 1
   	name_array = []
   	while index < student_roster.length
       name_array.push(student_roster[index])
       index += divisor
+      group_max += 1
+      if group_max > divisor
+      	break
+      end
       # e_log("name_array #{name_array}", "index #{index}")
     end
     group_array[i] = name_array
