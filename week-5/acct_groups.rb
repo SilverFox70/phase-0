@@ -3,11 +3,18 @@
 # Author: William F Brinkert
 # Date: October 27, 2015
 
+##
+# This is a logging method which takes any number of
+# arguments and then, for each argument assesses 
+# whether it is an array or a single object and then
+# puts the object(s) out to the console.  This is not
+# a functional part of the solution, but rather a 
+# helpful debugging type tool
 def e_log(*args)
   args.each do |item|
   	if item.is_a?(Array)
   	then item.each {|e| puts "e-log #{e}"} 
-    else puts "e-log #{item}"
+    else puts "e-log : #{item}"
     end
   end
   puts "-----------------------------------"
@@ -52,7 +59,6 @@ end
 # in which the inner array contains the names of the students 
 # in each group.
 def build_groups(num_of_groups, student_roster, divisor)
-  # e_log("Inside build_groups", num_of_groups, student_roster, divisor)
   group_array = []
   for i in 0..num_of_groups - 1
   	index = i
@@ -65,7 +71,6 @@ def build_groups(num_of_groups, student_roster, divisor)
       if group_max > divisor
       	break
       end
-      # e_log("name_array #{name_array}", "index #{index}")
     end
     group_array[i] = name_array
   end
@@ -83,6 +88,11 @@ def get_group_names(num_of_groups)
   g_names
 end
 
+##
+# Given a set of group names as an array and groups of data
+# which are also an array, it will merge the two into a hash
+# where the KEYs are the group_names and VALUEs are the groups
+# of data.
 def create_group_hash(group_names, groups)
   group_hash = Hash.new
   e_log("INSIDE OF CREATE_GROUP_HASH -------------------", group_names,groups)
@@ -104,7 +114,7 @@ def extract_names(str)
 	list.map {|e| e.strip!}
 	final_list = []
 	list.each_slice(4) {|a| final_list << a[0]}
-	final_list
+	final_list.shuffle!
 end
 
 def create_accountability_groups(raw_student_list)
@@ -127,12 +137,33 @@ def display_accountability_groups(accountability_groups)
 	accountability_groups.each {|k, v| puts "#{k} : #{v}"}
 end
 
-filename = "tester.txt"
+def get_file_list(filepath)
+  Dir.entries(filepath)
+end 
 
-raw_string = File.read(filename)
+def display_file_list(filepath)
+  get_file_list(filepath).each {|entry| puts entry}	
+end
+
+def save_file(acct_groups)
+  f = File.new("data_files/group_assignment.txt", "r+") 
+  	acct_groups.each {|k, v| puts f.write("#{k} : #{v} \n")}
+  f.close
+  puts "File successfully saved."
+end
+
+
+filepath = "data_files"
+filename = "tester.txt"
+thisfile = filepath << "/" << filename
+
+raw_string = File.read(thisfile)
 
 my_groups = create_accountability_groups(raw_string)
 display_accountability_groups(my_groups)
+display_file_list("data_files")
+save_file(my_groups)
+
 
 =begin
 Pseudocoding 5.6 Creating Accountability Groups
