@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class Object - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>acct_groups.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">BasicObject
+  
+</nav>
+
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-i-build_groups">#build_groups</a>
+    
+    <li ><a href="#method-i-create_accountability_groups">#create_accountability_groups</a>
+    
+    <li ><a href="#method-i-create_group_hash">#create_group_hash</a>
+    
+    <li ><a href="#method-i-display_accountability_groups">#display_accountability_groups</a>
+    
+    <li ><a href="#method-i-display_file_list">#display_file_list</a>
+    
+    <li ><a href="#method-i-e_log">#e_log</a>
+    
+    <li ><a href="#method-i-extract_names">#extract_names</a>
+    
+    <li ><a href="#method-i-find_optimal_divisor">#find_optimal_divisor</a>
+    
+    <li ><a href="#method-i-get_file_list">#get_file_list</a>
+    
+    <li ><a href="#method-i-get_group_names">#get_group_names</a>
+    
+    <li ><a href="#method-i-group_count">#group_count</a>
+    
+    <li ><a href="#method-i-save_file">#save_file</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Object.html">Object</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Object</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-build_groups" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">build_groups</span><span
+            class="method-args">(num_of_groups, student_roster, divisor)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Given an integer number of groups, an array of students  and a divisor this
+method will return an array of arrays  in which the inner array contains
+the names of the students  in each group.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="build_groups-source">
+            <pre><span class="ruby-comment"># File acct_groups.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">build_groups</span>(<span class="ruby-identifier">num_of_groups</span>, <span class="ruby-identifier">student_roster</span>, <span class="ruby-identifier">divisor</span>)
+  <span class="ruby-identifier">group_array</span> = []
+  <span class="ruby-keyword">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-identifier">num_of_groups</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+        <span class="ruby-identifier">index</span> = <span class="ruby-identifier">i</span>
+        <span class="ruby-identifier">group_max</span> = <span class="ruby-value">1</span>
+        <span class="ruby-identifier">name_array</span> = []
+        <span class="ruby-keyword">while</span> <span class="ruby-identifier">index</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">student_roster</span>.<span class="ruby-identifier">length</span>
+      <span class="ruby-identifier">name_array</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">student_roster</span>[<span class="ruby-identifier">index</span>])
+      <span class="ruby-identifier">index</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">divisor</span>
+      <span class="ruby-identifier">group_max</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">group_max</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">divisor</span>
+        <span class="ruby-keyword">break</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">group_array</span>[<span class="ruby-identifier">i</span>] = <span class="ruby-identifier">name_array</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">group_array</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- build_groups-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- build_groups-method -->
+
+    
+      <div id="method-i-create_accountability_groups" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_accountability_groups</span><span
+            class="method-args">(raw_student_list)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="create_accountability_groups-source">
+            <pre><span class="ruby-comment"># File acct_groups.rb, line 120</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_accountability_groups</span>(<span class="ruby-identifier">raw_student_list</span>)
+  <span class="ruby-identifier">student_roster</span> = <span class="ruby-identifier">extract_names</span>(<span class="ruby-identifier">raw_student_list</span>)
+  <span class="ruby-comment"># e_log(student_roster)</span>
+  <span class="ruby-identifier">number_of_students</span> = <span class="ruby-identifier">student_roster</span>.<span class="ruby-identifier">length</span>
+  <span class="ruby-comment"># e_log(&quot;number_of_students&quot;, number_of_students)</span>
+  <span class="ruby-identifier">divisor</span> = <span class="ruby-identifier">find_optimal_divisor</span>(<span class="ruby-identifier">number_of_students</span>)
+  <span class="ruby-comment"># e_log(&quot;divisor&quot;, divisor)</span>
+  <span class="ruby-identifier">num_of_groups</span> = <span class="ruby-identifier">group_count</span>(<span class="ruby-identifier">number_of_students</span>, <span class="ruby-identifier">divisor</span>)
+  <span class="ruby-comment"># e_log(&quot;number of groups&quot;, num_of_groups)</span>
+  <span class="ruby-identifier">group_names</span> = <span class="ruby-identifier">get_group_names</span>(<span class="ruby-identifier">num_of_groups</span>)
+  <span class="ruby-identifier">groups</span> = <span class="ruby-identifier">build_groups</span>(<span class="ruby-identifier">num_of_groups</span>, <span class="ruby-identifier">student_roster</span>, <span class="ruby-identifier">divisor</span>)
+  <span class="ruby-identifier">e_log</span>(<span class="ruby-string">&quot;GROUPS&quot;</span>, <span class="ruby-identifier">groups</span>)
+  <span class="ruby-identifier">accountability_groups</span> = <span class="ruby-identifier">create_group_hash</span>(<span class="ruby-identifier">group_names</span>, <span class="ruby-identifier">groups</span>)
+  <span class="ruby-identifier">accountability_groups</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create_accountability_groups-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create_accountability_groups-method -->
+
+    
+      <div id="method-i-create_group_hash" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_group_hash</span><span
+            class="method-args">(group_names, groups)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Given a set of group names as an array and groups of data which are also an
+array, it will merge the two into a hash where the KEYs are the group_names
+and VALUEs are the groups of data.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="create_group_hash-source">
+            <pre><span class="ruby-comment"># File acct_groups.rb, line 96</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_group_hash</span>(<span class="ruby-identifier">group_names</span>, <span class="ruby-identifier">groups</span>)
+  <span class="ruby-identifier">group_hash</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">e_log</span>(<span class="ruby-string">&quot;INSIDE OF CREATE_GROUP_HASH -------------------&quot;</span>, <span class="ruby-identifier">group_names</span>,<span class="ruby-identifier">groups</span>)
+  <span class="ruby-keyword">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-identifier">group_names</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>
+    <span class="ruby-identifier">group_hash</span>[<span class="ruby-identifier">group_names</span>[<span class="ruby-identifier">i</span>]] = <span class="ruby-identifier">groups</span>[<span class="ruby-identifier">i</span>]
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">group_hash</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create_group_hash-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create_group_hash-method -->
+
+    
+      <div id="method-i-display_accountability_groups" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">display_accountability_groups</span><span
+            class="method-args">(accountability_groups)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="display_accountability_groups-source">
+            <pre><span class="ruby-comment"># File acct_groups.rb, line 136</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">display_accountability_groups</span>(<span class="ruby-identifier">accountability_groups</span>)
+        <span class="ruby-identifier">accountability_groups</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{k} : #{v}&quot;</span>}
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- display_accountability_groups-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- display_accountability_groups-method -->
+
+    
+      <div id="method-i-display_file_list" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">display_file_list</span><span
+            class="method-args">(filepath)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="display_file_list-source">
+            <pre><span class="ruby-comment"># File acct_groups.rb, line 144</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">display_file_list</span>(<span class="ruby-identifier">filepath</span>)
+  <span class="ruby-identifier">get_file_list</span>(<span class="ruby-identifier">filepath</span>).<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">entry</span><span class="ruby-operator">|</span> <span class="ruby-identifier">puts</span> <span class="ruby-identifier">entry</span>}     
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- display_file_list-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- display_file_list-method -->
+
+    
+      <div id="method-i-e_log" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">e_log</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>This is a logging method which takes any number of arguments and then, for
+each argument assesses  whether it is an array or a single object and then
+puts the object(s) out to the console.  This is not a functional part of
+the solution, but rather a  helpful debugging type tool</p>
+          
+          
+
+          
+          <div class="method-source-code" id="e_log-source">
+            <pre><span class="ruby-comment"># File acct_groups.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">e_log</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-identifier">args</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+        <span class="ruby-keyword">then</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;e-log #{e}&quot;</span>} 
+    <span class="ruby-keyword">else</span> <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;e-log : #{item}&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;-----------------------------------&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- e_log-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- e_log-method -->
+
+    
+      <div id="method-i-extract_names" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extract_names</span><span
+            class="method-args">(str)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>This is a very situationally specific method which is designed to take a
+ctrl-c copy of the student roster from the canvas website and parse it down
+into a list of just names by removing all of the whitespace and junk we
+don&#39;t need, like cohort name and student/ TA information.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="extract_names-source">
+            <pre><span class="ruby-comment"># File acct_groups.rb, line 111</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_names</span>(<span class="ruby-identifier">str</span>)
+        <span class="ruby-identifier">list</span> = <span class="ruby-identifier">str</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp">/\n/</span>)
+        <span class="ruby-identifier">list</span> = <span class="ruby-identifier">list</span>.<span class="ruby-identifier">reject</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;\t&quot;</span>}
+        <span class="ruby-identifier">list</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">strip!</span>}
+        <span class="ruby-identifier">final_list</span> = []
+        <span class="ruby-identifier">list</span>.<span class="ruby-identifier">each_slice</span>(<span class="ruby-value">4</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span> <span class="ruby-identifier">final_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">0</span>]}
+        <span class="ruby-identifier">final_list</span>.<span class="ruby-identifier">shuffle!</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- extract_names-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- extract_names-method -->
+
+    
+      <div id="method-i-find_optimal_divisor" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_optimal_divisor</span><span
+            class="method-args">(num_of_students)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Takes the argument num_of_students as an integer and first checks to see if
+that number is perfectly divisable by either 4 or 5.  If it is, it returns 
+that number, otherwise it checks to see which divisor will leave the
+greatest remainder and it returns that value</p>
+          
+          
+
+          
+          <div class="method-source-code" id="find_optimal_divisor-source">
+            <pre><span class="ruby-comment"># File acct_groups.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">find_optimal_divisor</span>(<span class="ruby-identifier">num_of_students</span>)
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">num_of_students</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">num_of_students</span> <span class="ruby-operator">%</span> <span class="ruby-value">5</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> 
+        <span class="ruby-keyword">return</span> <span class="ruby-value">5</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-identifier">num_of_students</span> <span class="ruby-operator">%</span> <span class="ruby-value">4</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-value">4</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> (<span class="ruby-identifier">num_of_students</span> <span class="ruby-operator">%</span> <span class="ruby-value">5</span>) <span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">num_of_students</span> <span class="ruby-operator">%</span> <span class="ruby-value">4</span>)
+        <span class="ruby-keyword">return</span> <span class="ruby-value">5</span>
+  <span class="ruby-keyword">else</span> <span class="ruby-keyword">return</span> <span class="ruby-value">4</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find_optimal_divisor-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find_optimal_divisor-method -->
+
+    
+      <div id="method-i-get_file_list" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_file_list</span><span
+            class="method-args">(filepath)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_file_list-source">
+            <pre><span class="ruby-comment"># File acct_groups.rb, line 140</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_file_list</span>(<span class="ruby-identifier">filepath</span>)
+  <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">entries</span>(<span class="ruby-identifier">filepath</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_file_list-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_file_list-method -->
+
+    
+      <div id="method-i-get_group_names" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_group_names</span><span
+            class="method-args">(num_of_groups)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates group names for the number of groups passed to it as an integer</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_group_names-source">
+            <pre><span class="ruby-comment"># File acct_groups.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_group_names</span>(<span class="ruby-identifier">num_of_groups</span>)
+  <span class="ruby-identifier">g_names</span> = []
+  <span class="ruby-keyword">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword">in</span> <span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">num_of_groups</span>
+    <span class="ruby-identifier">g_names</span>.<span class="ruby-identifier">push</span>(<span class="ruby-node">&quot;Group #{i}&quot;</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">g_names</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_group_names-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_group_names-method -->
+
+    
+      <div id="method-i-group_count" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">group_count</span><span
+            class="method-args">(num_of_students, divisor)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Takes an integer argument for number of students and the divisor and return
+the number of groups that can be made.  If the number of students is
+divisable by the divisor without a remainder, it returns said division,
+otherwise it adds one to the number of groups to handle the remaining
+students</p>
+          
+          
+
+          
+          <div class="method-source-code" id="group_count-source">
+            <pre><span class="ruby-comment"># File acct_groups.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">group_count</span>(<span class="ruby-identifier">num_of_students</span>, <span class="ruby-identifier">divisor</span>)
+  <span class="ruby-identifier">num_of_students</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">divisor</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">num_of_students</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">divisor</span> <span class="ruby-operator">:</span> (<span class="ruby-identifier">num_of_students</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">divisor</span>) <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- group_count-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- group_count-method -->
+
+    
+      <div id="method-i-save_file" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">save_file</span><span
+            class="method-args">(acct_groups)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="save_file-source">
+            <pre><span class="ruby-comment"># File acct_groups.rb, line 148</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">save_file</span>(<span class="ruby-identifier">acct_groups</span>)
+  <span class="ruby-identifier">f</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;data_files/group_assignment.txt&quot;</span>, <span class="ruby-string">&quot;r+&quot;</span>) 
+        <span class="ruby-identifier">acct_groups</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">puts</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">write</span>(<span class="ruby-node">&quot;#{k} : #{v} \n&quot;</span>)}
+  <span class="ruby-identifier">f</span>.<span class="ruby-identifier">close</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;File successfully saved.&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- save_file-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- save_file-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
