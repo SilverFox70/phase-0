@@ -131,7 +131,6 @@ def create_accountability_groups(raw_student_list)
   group_names = get_group_names(num_of_groups)
   groups = build_groups(num_of_groups, student_roster, divisor)
   accountability_groups = create_group_hash(group_names, groups)
-  # accountability_groups
 end
 
 ##
