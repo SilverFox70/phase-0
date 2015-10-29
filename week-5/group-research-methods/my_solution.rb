@@ -67,19 +67,31 @@ end
 #
 
 
-# Person 3
-def my_array_sorting_method(source)
-  source # This line is here to make sure all tests initially fail. Delete it when you begin coding.
+# Person 3 - William Binkert
+def my_array_sorting_method(source) 
+  # sorted = source.dup
+  sorted_array = source.sort {|a, b| a.to_s <=> b.to_s}
 end
 
 def my_hash_sorting_method(source)
-   source # This line is here to make sure all tests initially fail. Delete it when you begin coding.
+   sorted_hash = source.sort_by {|name, age| age}
+end
+
+def my_better_hash_sorting_method(source)
+   sorted_hash = source.sort_by {|name, age| age}
 end
 
 # Identify and describe the Ruby method(s) you implemented.
-#
-#
-#
+# For the array:
+# I used the Enumerables method #sort to return an 
+# array of values sorted by alphabet.  I needed to add the
+# block after sort to avoid comparing Fixnum to String.
+# By converting all elements to string before comparing
+# the sort method is able to work properly
+# For the hash:
+# Since we need to sort by age I used the #sort_by method
+# so that I could identify which (the key ot the value) 
+# was to be used to sort the data.  
 
 
 # Person 4
@@ -101,11 +113,11 @@ end
 
 # Person 5
 def my_array_splitting_method(source)
-  source # This line is here to make sure all tests initially fail. Delete it when you begin coding.
+
 end
 
 def my_hash_splitting_method(source, age)
-  source # This line is here to make sure all tests initially fail. Delete it when you begin coding.
+
 end
 
 # Identify and describe the Ruby method(s) you implemented.
