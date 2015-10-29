@@ -19,6 +19,7 @@
 
 
 # 1. Initial Solution
+=begin
 def pad!(array, min_size, value = nil) #destructive
   diff = min_size - array.length 
   if diff <= 0 
@@ -27,6 +28,8 @@ def pad!(array, min_size, value = nil) #destructive
     return array 
   end
 end
+=end
+
 
 =begin
 def pad(array, min_size, value = nil) #non-destructive
@@ -42,6 +45,12 @@ end
 
 
 # 3. Refactored Solution
+def pad!(array, min_size, value = nil) #destructive
+  diff = min_size - array.length 
+  diff <= 0 ? array : diff.times {array.push(value)}
+  array
+end
+
 def pad(array, min_size, value = nil) #non-destructive
   new_array = array.dup
   diff = min_size - array.length
