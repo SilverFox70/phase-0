@@ -77,11 +77,13 @@ end
 
 # Person 4
 def my_array_deletion_method!(source, thing_to_delete)
-  source.dup # This line is here to make sure all tests initially fail. Delete it when you begin coding.
+  source.reject! {|word| word.to_s.rindex(thing_to_delete) != nil}
+  return source
 end
 
 def my_hash_deletion_method!(source, thing_to_delete)
-  source.dup # This line is here to make sure all tests initially fail. Delete it when you begin coding.
+  source.reject! {|key| key == thing_to_delete}
+  return source
 end
 
 # Identify and describe the Ruby method(s) you implemented.
