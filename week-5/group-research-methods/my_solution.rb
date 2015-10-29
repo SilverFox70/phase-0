@@ -46,17 +46,25 @@ After checking each value, we returned the array 'result'.
 
 
 # Person 2
-def my_array_modification_method!(source, thing_to_modify)
-  source.dup # This line is here to make sure all tests initially fail. Delete it when you begin coding.
+def my_array_modification_method!(array, increase)
+  array.map! do |x| 
+    if x.is_a? Integer
+      x += increase
+    else 
+      x
+    end
+  end
 end
 
-def my_hash_modification_method!(source, thing_to_modify)
-  source.dup # This line is here to make sure all tests initially fail. Delete it when you begin coding.
+
+
+def my_hash_modification_method!(hash, years)
+  hash.each {|name, age| hash[name] = age + years}
 end
 
 # Identify and describe the Ruby method(s) you implemented.
-#
-#
+#I used a is.a? Integer to determine whether or not one of the variables in my array was an integer before I added the increase into it. 
+#I used .each for the hash method because each key/value pair had an integer for the age. I made it destructive by calling on the key within the hash each time and changing the actual value. 
 #
 
 
