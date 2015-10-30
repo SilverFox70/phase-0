@@ -23,6 +23,7 @@
 
 
 # 1. Initial Solution
+=begin
 def frequencies(source)
 	freq = Hash.new
 	source.each do |e|
@@ -43,13 +44,26 @@ def mode(source)
 	mode_hash.each {|k, v| mode_array.push(k)}
 	mode_array
 end
+=end
 
 
-p mode([1,1,2,3,4,5,5])
-p mode([1,2,3])
+#p mode([1,1,2,3,4,5,5])
+#p mode([1,2,3])
 
 # 3. Refactored Solution
+def frequencies(source)
+	freq = Hash.new
+	source.each do |e| 
+	    freq[e] = source.count(e)
+    end
+    freq
+end
 
+def mode(source)
+	freq_hash = frequencies(source)
+	highest_frequency = freq_hash.max_by {|k, v|  v }[1]
+	mode_array = freq_hash.collect {|k, v| k if v == highest_frequency}.reject{|x| x == nil}
+end
 
 
 
