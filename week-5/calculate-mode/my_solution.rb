@@ -36,14 +36,14 @@ end
 
 def mode(source)
 	freq_hash = frequencies(source)
-	mode_array = []
-	all_only_once = true
-	if freq_hash.none? {|k, v| v > 1}
-		mode_array = source 
-	else freq_hash.each {|k, v| mode_array.push(k) if v > 1}
-	end
+	highest_frequency = 0
+	freq_hash.each {|k, v| highest_frequency = v if v > highest_frequency}
+	mode_hash = freq_hash.select {|k, v| v == highest_frequency}
+	mode_array = [] 
+	mode_hash.each {|k, v| mode_array.push(k)}
 	mode_array
 end
+
 
 p mode([1,1,2,3,4,5,5])
 p mode([1,2,3])
