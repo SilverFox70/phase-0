@@ -68,3 +68,39 @@ end
 
 
 # 4. Reflection
+=begin
+Which data structure did you and your pair decide to implement and why?
+
+	We ended up using a hash, although at first we were thinking of using an 
+	multi-dimensional array. It quickly became clear that using a hash would 
+	be easier because we would be able to access the data ultimately wanted 
+	more directly and easily.
+
+Were you more successful breaking this problem down into implementable pseudocode 
+than the last with a pair? 
+	This challenge was much more difficult for us.  Although we wrote the pseudocode
+	in plain English style, I think we would have benefited from calling out more
+	specific variable names and actions.  It was one of those, it seemed simple 
+	enough at first...
+
+What issues/successes did you run into when translating your pseudocode to code?
+	We had a bear of a time doing it.  Our pseudocode was not nearly explicit
+	enough and we quickly found ourselve lost as we started to actually code the
+	solution.  We should probably have put down the coding and returned to rework
+	the pseudocode once we saw that our ideas were not explicit enough.
+
+What methods did you use to iterate through the content? Did you find any good ones 
+when you were refactoring? Were they difficult to implement?
+	#select was probably the fanciest method we used in the initial solution, and a
+	few #each iterators.  To refactor we used #max_by, #collect, and #reject.  It 
+	took a bit of banging around to get #max_by to work properly until we realized
+	that we could treat the whole expression as if it were an array, since that is
+	its return type.  Collect is super handy, but at first we got array filled with
+	nil values, so we used #reject to git rid of them.  There is probably a more
+	elegant way to do what we did there, but we couldn't find a method that seemed
+	perfect.
+=end
+
+
+
+
