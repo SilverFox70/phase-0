@@ -106,9 +106,10 @@ def my_hash_deletion_method!(source, thing_to_delete)
 end
 
 # Identify and describe the Ruby method(s) you implemented.
-#
-#
-#
+# I used the reject! method for both the hash and array.
+# For the array solution, I used the rindex function to determine if the word contained the letter that we provided. I also converted the array elements to strings since some of the elements were integers, which causes rindex to fail.
+# For the hash solution, I compared the key to the thing_to_delete, since the function is looking for a string match to the keyword, not a substring of the keyword.
+
 
 
 # Person 5 Ryan Zell
