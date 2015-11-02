@@ -45,7 +45,7 @@ After checking each value, we returned the array 'result'.
 =end
 
 
-# Person 2
+# Person 2 Kevin Corso
 def my_array_modification_method!(array, increase)
   array.map! do |x| 
     if x.is_a? Integer
@@ -94,7 +94,7 @@ end
 # was to be used to sort the data.  
 
 
-# Person 4
+# Person 4 Sasha Tailor
 def my_array_deletion_method!(source, thing_to_delete)
   source.reject! {|word| word.to_s.rindex(thing_to_delete) != nil}
   return source
@@ -111,7 +111,7 @@ end
 #
 
 
-# Person 5
+# Person 5 Ryan Zell
 def my_array_splitting_method(source)
   divide = source.sort_by{|x| x.to_s}
     total = divide.find_all{|item| item % 1 == 0 }.count 
