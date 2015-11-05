@@ -57,13 +57,50 @@ class BingoBoard
   @@column = 0
   @@numvalue = 1
   @@letter = {"B" => 0, "I" => 1, "N" => 2, "G" => 3, "O" => 4}
+  @@ranges = [1..15, 16..30, 31..45, 46..60, 61..75]
 
 
-  def initialize(board)
-    @bingo_board = board
+  def initialize(*args)
+    @bingo_board = Array.new
+    args.empty? ? create_board : @bingo_board = args[0]
     @called_num = Array.new
 
   end
+
+  def create_board
+    puts "Create board..."
+    num_set = create_number_sets
+    temp_ary = Array.new
+    num_set.each_with_index do | num_ary, i|
+      num_set.each {|e| temp_ary << e[i]}
+      @bingo_board[i] = temp_ary
+      temp_ary = []
+    end
+    puts "Center of board : #{@bingo_board[2][2]}"
+    @bingo_board[2][2] = "X"
+    puts "board : #{@bingo_board}"
+  end
+
+  def create_number_sets
+    puts "Create matrix..."
+    horizontal_ary = Array.new
+    five_ary = Array.new
+    @@ranges. each do |range|
+      five_uniq_values = false
+      while !five_uniq_values
+        5.times {five_ary << rand(range) }
+        puts "five_ary = #{five_ary} : length = #{five_ary.length}"
+        five_ary.uniq!
+        if five_ary.length == 5
+          horizontal_ary << five_ary
+          five_uniq_values = true
+        end
+        five_ary = []
+      end
+    end
+    horizontal_ary
+  end
+
 
   ##
   # Generates a random number between 0 and 4 and another
@@ -133,8 +170,8 @@ board = [[47, 44, 71, 8, 88],
         [83, 85, 97, 89, 57],
         [25, 31, 96, 68, 51],
         [75, 70, 54, 80, 83]]
-new_game = BingoBoard.new(board)
-
+#new_game = BingoBoard.new(board)
+new_game = BingoBoard.new()
 puts "Display BingoBoard"
 new_game.display_board
 
