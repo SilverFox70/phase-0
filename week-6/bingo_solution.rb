@@ -1,6 +1,6 @@
 # A Nested Array to Model a Bingo Board SOLO CHALLENGE
 
-# I spent [#] hours on this challenge.
+# I spent [4] hours on this challenge.
 
 
 # Release 0: Pseudocode
@@ -347,33 +347,63 @@ class BingoBoard
     end
   end
 
+  # def tranpose_board
+  #   @bingo_board = @bingo_board.transpose
+  #   display_board
+  # end
+
   ##
   # Beginning of creating a method to check if "Bingo"
   # has happened i.e. a vertical, horizontal, or diagonal
   # of the board is all "X"s.
   def bingo?
     win = false
-    check_vertical
-    #check_horizontal
-    #check_diagonal
+    puts "cv : #{check_vertical}"
+    puts "ch : #{check_horizontal}"
+    puts "cd : #{check_diagonal}"
+    if check_vertical || 
+       check_horizontal ||
+       check_diagonal
+       win = true
+     end
     win
   end
 
   ##
   # Checks each vertical column to see if it is all filled
-  # with "X"s.
+  # with "X"s. Actually transposes the board, sends a call
+  # to check check_horizontal, and then transposes again
   def check_vertical
-    @@letter.values.each do |column|
-      all_x = true
-      @bingo_board.each do |row|
-        if row[column].to_i != "X".to_i
-          all_x = false
-        end
-      return true if all_x
-      end
-    end
+    @bingo_board = @bingo_board.transpose
+    win = check_horizontal
+    @bingo_board = @bingo_board.transpose
+    win
   end
 
+  def check_horizontal
+    win = false
+    @bingo_board.each do |row|
+      win = true if row.all? {|e| e == "X"}
+    end
+    win
+  end
+
+  def check_diagonal
+    diag_tlbr = []
+    diag_bltr = []
+    rvs_index = -1
+    @bingo_board.each_with_index do |row, index|
+      diag_tlbr << row[index]
+      diag_bltr << row[rvs_index]
+      rvs_index -= 1
+    end
+    if diag_bltr.all? {|e| e == "X"} || diag_tlbr.all? {|e| e == "X"}
+      return true
+    else 
+      return false
+    end
+
+  end
 
   ##
   # Displays a single column of the bingo board with the letter
@@ -405,6 +435,10 @@ class BingoBoard
     abort
   end
 
+  # Declare which methods are private
+  private :alt_call_number, :create_number_sets, :create_board,
+           :check_vertical, :check_horizontal, :check_diagonal,
+           :raise_error
 end
 
 
@@ -443,5 +477,78 @@ new_game.display_board
 puts "Bingo?"
 puts new_game.bingo?
 
-#Reflection
+# Let the program play an entire game until it wins
+new_game = BingoBoard.new()
+while !new_game.bingo? 
+  puts "Calling call_number..."
+  p new_game.call_number
 
+  puts "Calling #check_number..."
+  new_game.check_number
+
+  puts "Display BingoBoard"
+  new_game.display_board
+end
+
+puts "Display BingoBoard"
+new_game.display_board
+
+# puts "Display BingoBoard tranposed"
+# new_game.tranpose_board
+
+#Reflection
+=begin
+
+How difficult was pseudocoding this challenge? What do you think of your pseudocoding style?
+  I am definitely getting better, but have a long way to go.  This challenge required much
+  more pseudocoding, and as it turned out, although I did it quite explicitly I found myself
+  making adjustments on the fly when I began the actual coding. I am still working on my style.
+
+
+What are the benefits of using a class for this challenge?
+  Class variables and constants are certainly a benefit, as well as the ability to make
+  some methods private so that users can't muck about with how the program works or make
+  calls to methods they have no place making.  If I were doing it again, I might opt to
+  make a parent class that could deal with matrices and then make the BingoBoard class
+  inherit that super class.  In the super class would be access to a regular matrix and
+  its transposed version, as well as maybe some of the logic for testing whether the
+  matrix contained certain objects, or whether an entire row or column was the same value.
+
+
+How can you access coordinates in a nested array?
+  To access a nested array you need two sets of brackets.  If we had ary = [[a, b], [5, 6]] 
+  and we wanted to get to the 5 in the seconde nested array, we would type ary[1][0]
+
+
+What methods did you use to access and modify the array?
+  #each and #each_with_index were used quite a bit.  I also used #transpose and #all?. The first two
+  were used just to iterate through items.
+
+
+Give an example of a new method you learned while reviewing the Ruby docs. Based on what you
+see in the docs, what purpose does it serve, and how is it called?
+  #all? is a great way to test to see if all of the elements of an array are the same. 
+  #transpose allowed me to flip the array around (pivot it) in some cases to make checking
+  for matches by iterating through the array easier.  I could have used it more, but decided
+  that it was probably a resource hog and rather slow, so in some cases I stuck with working
+  on the matrix as is.
+
+
+How did you determine what should be an instance variable versus a local variable?
+  Those variables which were going to be used often across many different methods I choose
+  to make class or instance variables to avoid having to pass around data between methods all
+  of the time.  All no method takes outside data, meaning that an end user can't change the
+  behavior of the program - which means that it will always function as predicted since no weird
+  data can be passed into it.  The exception is the initialize method: someone could pass in
+  an invalid array which could cause the program to fail.  If I had more time I would implement
+  measures to prevent that.
+
+
+What do you feel is most improved in your refactored solution?
+  I made a good first pass at making somethings more DRY and trying to move things to class variables
+  and constants at the outset to provide an easy way to modify the behavior or output of the program.
+  I could certainly have taken it further and look forward to feedback about ways to do that.  I implemented
+  some more convenience methods, but I did not go hogwild doing that since I am not sure it would improve
+  readability or performance in most cases.  I did "complete" the program so that it can play a complete
+  game through to the finish and wrote driver code to let it play out an entire game.
+=end
