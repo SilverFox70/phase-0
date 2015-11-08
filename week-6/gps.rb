@@ -5,39 +5,38 @@
 # We spent [#] hours on this challenge.
 
 # Bakery Serving Size portion calculator.
+##
+# Calculates the number of item_to_make possible
+# with the given ingredients_available and how many left 
+# over units, if any
+def quantity_possible(item_to_make, ingredients_available)
+  # initialize values: food_units_needed defines how many baking
+  # units needed for each item (key). Initialize variable
+  # error_counter at 3
+  food_units_needed = {"cookie" => 1, "cake" =>  5, "pie" => 7}
 
-def serving_size_calc(item_to_make, order_quantity)
-  library = {"cookie" => 1, "cake" =>  5, "pie" => 7}
-  error_counter = 3
+  # Check to see if the item_to_make exists in the food_units_needed
+  fail ArgumentError, "#{item_to_make} is not a valid input" unless food_units_needed.include?(item_to_make)
 
-  library.each do |food|
-    if library[food] != library[item_to_make]
-      p error_counter += -1
-    end
-  end
+  # store the number of baking units needed in serving_size
+  serving_size = food_units_needed[item_to_make]
+  # find the number of baking units left over after making item
+  leftovers = ingredients_available % serving_size
 
-  if error_counter > 0
-    raise ArgumentError.new("#{item_to_make} is not a valid input")
-  end
-
-  serving_size = library.values_at(item_to_make)[0]
-  serving_size_mod = order_quantity % serving_size
-
-  case serving_size_mod
-  when 0
-    return "Calculations complete: Make #{order_quantity/serving_size} of #{item_to_make}"
-  else
-    return "Calculations complete: Make #{order_quantity/serving_size} of #{item_to_make}, you have #{serving_size_mod} leftover ingredients. Suggested baking items: TODO: MAKE THIS FEATURE"
-  end
+  baking_report =  "Calculations complete: Make #{ingredients_available/serving_size} of #{item_to_make}"
+  
+  leftover_plan =  ", you have #{leftovers} leftover ingredients. Suggested baking items: TODO: MAKE THIS FEATURE" 
+  leftovers.zero? ? baking_report : baking_report + leftover_plan
 end
 
-p serving_size_calc("pie", 7)
-p serving_size_calc("pie", 8)
-p serving_size_calc("cake", 5)
-p serving_size_calc("cake", 7)
-p serving_size_calc("cookie", 1)
-p serving_size_calc("cookie", 10)
-p serving_size_calc("THIS IS AN ERROR", 5)
+#p quantity_possible("cookie", 3)
+p quantity_possible("pie", 8)
+#p quantity_possible("cake", 5)
+# p quantity_possible("cake", 7)
+# p quantity_possible("cookie", 1)
+# p quantity_possible("cookie", 10)
+# p quantity_possible("THIS IS AN ERROR", 5)
 
 #  Reflection
 
+# NOT complete: will turn in the added feature on Sunday.
