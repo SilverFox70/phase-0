@@ -50,9 +50,9 @@
 class CreditCard
   def initialize ( userNum )
     if userNum.to_s.size < 16
-      raise ArgumentError( 'Card number not long enough!' )
+      raise ArgumentError.new( 'Card number not long enough!' )
     elsif userNum.to_s.size > 16
-      raise ArgumentError( 'Card number too long!' )
+      raise ArgumentError.new( 'Card number too long!' )
     else
       remainder = userNum
       @cardNum = Array.new( 16 )
@@ -100,8 +100,8 @@ class CreditCard
 end
 
   
-mycard = CreditCard.new( 456396012200199 )
-mycard.debug
+mycard = CreditCard.new( 4563960122001999 )
+mycard.check_card
 
 #Reflection
 

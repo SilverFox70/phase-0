@@ -46,7 +46,7 @@
     
 # Don't forget to check on initialization for a card length
 # of exactly 16 digits
-
+#
 class CreditCard
   def initialize ( userNum )
     if userNum.to_s.size < 16
