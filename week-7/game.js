@@ -44,6 +44,7 @@
 //    2. Call the above function but with player info so that it will show the locations
 //       of your ships as well as hit and miss data
 // Get User attack
+//  ** Check for valid input!!!
 //    1. prompt user for a grid position to attack
 //    2. check if that space is occupied by an enemy ship
 //       a. IF it is, THEN replace that element in the enemy grid with an "X"
@@ -60,10 +61,70 @@
 //
 
 // Initial Code
+GRID_SIZE = 9;
+TOP_LABEL = [" ",1,2,3,4,5,6,7,8];
+SIDE_LABEL = [' ', 'A','B','C','D','E','F','G','H'];
+SPACER = "    ";
+
 function posXY(){
 	var pos_x = Math.floor(Math.random() * 9);
 	var pos_y = Math.floor(Math.random() * 9);
 	return [pos_x, pos_y];
+}
+
+function Fleet() {
+	this.battleship = { size: 5, health: 5};
+	this.destroyer = { size: 4, health: 4};
+	this.cruiser = { size: 3, health: 3};
+	this.submarine = { size: 2, health: 2};
+	this.isHit = function(ship) {
+		ship.health -= 1;
+		return ship.health;
+	}
+}
+
+function createArray(size) {
+	arr = new Array(size);
+	for (var i = 0; i < size; i++){
+		arr[i] = new Array(size);
+	}
+
+	return arr;
+}
+
+// mainly a debugging tool for diplaying a row at a time
+function show_row(arr){
+	for (var i = 0; i < arr.length; i++){
+		process.stdout.write("i: " + arr[i] + "\t");
+	}
+	console.log("");
+}
+
+function Grid() {
+	this.grid = createArray(GRID_SIZE);
+	for (var i = 0; i < GRID_SIZE; i++){
+		if (i == 0) {
+			this.grid[i] = TOP_LABEL;
+			continue;
+		}
+		for (var j = 0; j < GRID_SIZE; j++){
+			if (j == 0){
+				this.grid[i][j] = SIDE_LABEL[i];
+			} else {
+			this.grid[i][j] = "w";
+			}
+		}
+	}
+	return this.grid;
+}
+
+function displayGrid(grid) {
+	for (var i = 0; i < GRID_SIZE; i++){
+		for (var j = 0; j < GRID_SIZE; j++){
+			process.stdout.write(grid[i][j] + SPACER);
+		}
+		process.stdout.write("\n \n");
+	}
 }
 
 // Code below is for getting user input from the console.
@@ -80,7 +141,13 @@ function posXY(){
 
 // Driver Code
 console.log("Numbers: " + posXY());
-
+var myFleet = new Fleet();
+console.log("show health: " + myFleet.battleship.health);
+console.log("show hit: " + myFleet.isHit(myFleet.battleship)); 
+var enemyFleet = new Fleet();
+console.log("show enemy : " + enemyFleet.battleship.health);
+grid = new Grid();
+displayGrid(grid);
 
 
 
