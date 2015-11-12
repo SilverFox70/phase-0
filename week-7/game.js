@@ -26,7 +26,7 @@
 // Randomly fill two grids with "ships"
 //    1. Starting with the battleship, randomly place ship in grid
 //       a. grid is an array of arrays
-//       b. all spaces initialized as "w" for water/meaning empty
+//       b. all spaces initialized as EMPTY_SPACE for water/meaning empty
 //       c. randomly generate two numbers for the starting position of the ship
 //       d. check if the ship can fit horizontally or vertically without going
 //          out of bounds of the array grid
@@ -61,10 +61,13 @@
 //
 
 // Initial Code
-GRID_SIZE = 9;
-TOP_LABEL = [" ",1,2,3,4,5,6,7,8];
-SIDE_LABEL = [' ', 'A','B','C','D','E','F','G','H'];
-SPACER = "    ";
+GRID_SIZE = 9; // size of the playing area
+X_AXIS = 0;
+Y_AXIS = 1;
+TOP_LABEL = [" ",1,2,3,4,5,6,7,8]; // sets labels for top row of grid
+SIDE_LABEL = [' ', 'A','B','C','D','E','F','G','H']; // labels for side of grid
+SPACER = "    "; // sets the horizontal spacer that makes it look pretty 
+EMPTY_SPACE = "w"; // sets the value to be used for empty spaces in the grid
 
 function posXY(){
 	var pos_x = Math.floor(Math.random() * 9);
@@ -111,7 +114,7 @@ function Grid() {
 			if (j == 0){
 				this.grid[i][j] = SIDE_LABEL[i];
 			} else {
-			this.grid[i][j] = "w";
+			this.grid[i][j] = EMPTY_SPACE;
 			}
 		}
 	}
@@ -125,6 +128,47 @@ function displayGrid(grid) {
 		}
 		process.stdout.write("\n \n");
 	}
+}
+
+function fitsHorizontal(x, size){
+	console.log("x : " + x + "\t size : " + size + " space : " + (GRID_SIZE - x) + "   t/f : " + ((GRID_SIZE - x) > size) );
+	return ((GRID_SIZE - x) > size);
+}
+
+function fitsVertical(y, size){
+	console.log("y : " + y + "\t size : " + size + " space : " + (GRID_SIZE - y) + "   t/f : " + ((GRID_SIZE - y) > size) );
+	return ((GRID_SIZE - y) > size);
+}
+
+function findValidPosition(shipsize){
+	loc = posXY();      // I am cheating by letting these two variables exist beyond
+	horizontal = false; // of this method.  Bad practice, but a quick solution ;)
+	if (fitsHorizontal(loc[X_AXIS], shipsize)) {
+		horizontal = true;
+		return [loc, horizontal];
+	} else if (fitsVertical(loc[Y_AXIS], shipsize)){
+		horizontal = false;
+		return [loc, horizontal];
+	} else return [false];
+}
+
+function putShipOnGrid(pos, ship, hor, grid){
+	if (hor){
+		for (var i = 0; i < ship.size; i++){
+			grid[pos[Y_AXIS]][pos[X_AXIS]+i] = "B";
+		}
+	} else {
+		for (var i = 0; i < ship.size; i++){
+			grid[pos[Y_AXIS]+i][pos[X_AXIS]] = "B";
+		}
+	}
+}
+function placeShips(fleet, grid){
+	while (!findValidPosition(fleet.battleship.size)[0]){
+		// empty for now
+	}
+	console.log("posXY : " + loc[0] + ", " + loc[1] + " is horizontal? " + horizontal);
+	putShipOnGrid(loc, fleet.battleship, horizontal, grid);
 }
 
 // Code below is for getting user input from the console.
@@ -148,7 +192,8 @@ var enemyFleet = new Fleet();
 console.log("show enemy : " + enemyFleet.battleship.health);
 grid = new Grid();
 displayGrid(grid);
-
+placeShips(myFleet, grid);
+displayGrid(grid);
 
 
 // Refactored Code
