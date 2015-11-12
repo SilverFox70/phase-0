@@ -67,19 +67,20 @@ Y_AXIS = 1;
 TOP_LABEL = [" ",1,2,3,4,5,6,7,8]; // sets labels for top row of grid
 SIDE_LABEL = [' ', 'A','B','C','D','E','F','G','H']; // labels for side of grid
 SPACER = "    "; // sets the horizontal spacer that makes it look pretty 
-EMPTY_SPACE = "w"; // sets the value to be used for empty spaces in the grid
+VSPCER = "\n \n"; // set the vertical spacer that makes it look pretty
+EMPTY_SPACE = " "; // sets the value to be used for empty spaces in the grid
 
 function posXY(){
-	var pos_x = Math.floor(Math.random() * 9);
-	var pos_y = Math.floor(Math.random() * 9);
+	var pos_x = Math.floor(Math.random() * 8) + 1;
+	var pos_y = Math.floor(Math.random() * 8) + 1;
 	return [pos_x, pos_y];
 }
 
 function Fleet() {
-	this.battleship = { size: 5, health: 5};
-	this.destroyer = { size: 4, health: 4};
-	this.cruiser = { size: 3, health: 3};
-	this.submarine = { size: 2, health: 2};
+	this.battleship = { size: 5, health: 5, sym: "B"};
+	this.destroyer = { size: 4, health: 4, sym: "D"};
+	this.cruiser = { size: 3, health: 3, sym: "C"};
+	this.submarine = { size: 2, health: 2, sym: "S"};
 	this.isHit = function(ship) {
 		ship.health -= 1;
 		return ship.health;
@@ -102,6 +103,17 @@ function show_row(arr){
 	}
 	console.log("");
 }
+
+// debugging tool for displaying all ships in fleet and size values
+function showObjectProp(fleet){
+	console.log(fleet)
+	for (var key in fleet){
+		if (fleet.hasOwnProperty(key)){
+			if (key != "isHit") console.log(key + " : " + fleet[key].size);
+		}
+	}
+}
+
 
 function Grid() {
 	this.grid = createArray(GRID_SIZE);
@@ -126,27 +138,39 @@ function displayGrid(grid) {
 		for (var j = 0; j < GRID_SIZE; j++){
 			process.stdout.write(grid[i][j] + SPACER);
 		}
-		process.stdout.write("\n \n");
+		process.stdout.write(VSPCER);
 	}
 }
 
-function fitsHorizontal(x, size){
+function fitsHorizontal(x, y, size){
 	console.log("x : " + x + "\t size : " + size + " space : " + (GRID_SIZE - x) + "   t/f : " + ((GRID_SIZE - x) > size) );
-	return ((GRID_SIZE - x) > size);
+	var doesFit = ((GRID_SIZE - x) > size);
+	if (doesFit) {
+		for (var i = 0; i < size; i++){
+			if (grid[y][x+i] != EMPTY_SPACE) doesFit = false; 
+		}
+	}
+	return doesFit;
 }
 
-function fitsVertical(y, size){
+function fitsVertical(x, y, size){
 	console.log("y : " + y + "\t size : " + size + " space : " + (GRID_SIZE - y) + "   t/f : " + ((GRID_SIZE - y) > size) );
-	return ((GRID_SIZE - y) > size);
+	var doesFit = ((GRID_SIZE - y) > size);
+	if (doesFit) {
+		for (var i = 0; i < size; i++){
+			if (grid[y+i][x] != EMPTY_SPACE) doesFit = false; 
+		}
+	}
+	return doesFit;
 }
 
 function findValidPosition(shipsize){
 	loc = posXY();      // I am cheating by letting these two variables exist beyond
 	horizontal = false; // of this method.  Bad practice, but a quick solution ;)
-	if (fitsHorizontal(loc[X_AXIS], shipsize)) {
+	if (fitsHorizontal(loc[X_AXIS], loc[Y_AXIS],shipsize)) {
 		horizontal = true;
 		return [loc, horizontal];
-	} else if (fitsVertical(loc[Y_AXIS], shipsize)){
+	} else if (fitsVertical(loc[X_AXIS], loc[Y_AXIS], shipsize)){
 		horizontal = false;
 		return [loc, horizontal];
 	} else return [false];
@@ -155,20 +179,25 @@ function findValidPosition(shipsize){
 function putShipOnGrid(pos, ship, hor, grid){
 	if (hor){
 		for (var i = 0; i < ship.size; i++){
-			grid[pos[Y_AXIS]][pos[X_AXIS]+i] = "B";
+			grid[pos[Y_AXIS]][pos[X_AXIS]+i] = ship.sym;
 		}
 	} else {
 		for (var i = 0; i < ship.size; i++){
-			grid[pos[Y_AXIS]+i][pos[X_AXIS]] = "B";
+			grid[pos[Y_AXIS]+i][pos[X_AXIS]] = ship.sym;
 		}
 	}
 }
 function placeShips(fleet, grid){
-	while (!findValidPosition(fleet.battleship.size)[0]){
-		// empty for now
-	}
-	console.log("posXY : " + loc[0] + ", " + loc[1] + " is horizontal? " + horizontal);
-	putShipOnGrid(loc, fleet.battleship, horizontal, grid);
+	for (var key in fleet){
+		if (fleet.hasOwnProperty(key)){
+			if (key != "isHit") {
+				while (!findValidPosition(fleet[key].size)[0]){}
+				console.log(key + " : " + fleet[key].size); //debugging line
+				console.log("posXY : " + loc[0] + ", " + loc[1] + " is horizontal? " + horizontal);
+				putShipOnGrid(loc, fleet[key], horizontal, grid);	
+			}  
+		}
+	}	
 }
 
 // Code below is for getting user input from the console.
@@ -194,7 +223,7 @@ grid = new Grid();
 displayGrid(grid);
 placeShips(myFleet, grid);
 displayGrid(grid);
-
+showObjectProp(myFleet);
 
 // Refactored Code
 
