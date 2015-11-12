@@ -62,20 +62,25 @@
 
 // Initial Code
 GRID_SIZE = 9; // size of the playing area
-X_AXIS = 0;
-Y_AXIS = 1;
+X_AXIS = 0; // defines the index to be used for the x axis values
+Y_AXIS = 1; // defines the index to be used for the y axis values
 TOP_LABEL = [" ",1,2,3,4,5,6,7,8]; // sets labels for top row of grid
 SIDE_LABEL = [' ', 'A','B','C','D','E','F','G','H']; // labels for side of grid
 SPACER = "    "; // sets the horizontal spacer that makes it look pretty 
 VSPCER = "\n \n"; // set the vertical spacer that makes it look pretty
 EMPTY_SPACE = " "; // sets the value to be used for empty spaces in the grid
+HIT_X = "X"; //sets the value to be used for a "hit" on a ship
+MISS = "O"; //set the value to be used for a missed shot
 
+// returns two random values in an array. These values are guaranteed
+// to be within the playing space of the game grid
 function posXY(){
-	var pos_x = Math.floor(Math.random() * 8) + 1;
-	var pos_y = Math.floor(Math.random() * 8) + 1;
+	var pos_x = Math.floor(Math.random() * (GRID_SIZE-1)) + 1;
+	var pos_y = Math.floor(Math.random() * (GRID_SIZE-1)) + 1;
 	return [pos_x, pos_y];
 }
 
+// Define a fleet object
 function Fleet() {
 	this.battleship = { size: 5, health: 5, sym: "B"};
 	this.destroyer = { size: 4, health: 4, sym: "D"};
@@ -87,6 +92,7 @@ function Fleet() {
 	}
 }
 
+// creates an array of arrays whose dimensions are size x size
 function createArray(size) {
 	arr = new Array(size);
 	for (var i = 0; i < size; i++){
@@ -114,7 +120,7 @@ function showObjectProp(fleet){
 	}
 }
 
-
+//  populates an square matrix array of GRID_SIZE x GRID_SIZE dimension
 function Grid() {
 	this.grid = createArray(GRID_SIZE);
 	for (var i = 0; i < GRID_SIZE; i++){
@@ -133,16 +139,36 @@ function Grid() {
 	return this.grid;
 }
 
-function displayGrid(grid) {
+// Shows the playing grid of either the player or the computer
+// The computers grid (when enemy == true) does not display the
+// locations of the enemy ships
+function displayGrid(grid, enemy) {
+	if (enemy) {
+		console.log("\t <** Enemy Grid **>");
+	} else console.log("\t <** Player Grid **>");
 	for (var i = 0; i < GRID_SIZE; i++){
 		for (var j = 0; j < GRID_SIZE; j++){
-			process.stdout.write(grid[i][j] + SPACER);
+			if ((!enemy)||(i == 0)||(j == 0)) {
+				process.stdout.write(grid[i][j] + SPACER);
+			} else {
+				if ((grid[i][j] != SPACER)||
+					(grid[i][j] != HIT_X)||
+					(grid[i][j] != MISS)) {
+					process.stdout.write(EMPTY_SPACE + SPACER);
+				} else {
+					process.stdout.write(grid[i][j] + SPACER);
+				}
+			}
 		}
 		process.stdout.write(VSPCER);
 	}
 }
 
-function fitsHorizontal(x, y, size){
+// ------------------------------------------------------------------------
+/* Functions below handle placing and validating locations of fleet ships */
+// ------------------------------------------------------------------------
+
+function fitsHorizontal(x, y, size, grid){
 	console.log("x : " + x + "\t size : " + size + " space : " + (GRID_SIZE - x) + "   t/f : " + ((GRID_SIZE - x) > size) );
 	var doesFit = ((GRID_SIZE - x) > size);
 	if (doesFit) {
@@ -153,7 +179,7 @@ function fitsHorizontal(x, y, size){
 	return doesFit;
 }
 
-function fitsVertical(x, y, size){
+function fitsVertical(x, y, size, grid){
 	console.log("y : " + y + "\t size : " + size + " space : " + (GRID_SIZE - y) + "   t/f : " + ((GRID_SIZE - y) > size) );
 	var doesFit = ((GRID_SIZE - y) > size);
 	if (doesFit) {
@@ -164,13 +190,13 @@ function fitsVertical(x, y, size){
 	return doesFit;
 }
 
-function findValidPosition(shipsize){
+function findValidPosition(shipsize, grid){
 	loc = posXY();      // I am cheating by letting these two variables exist beyond
 	horizontal = false; // of this method.  Bad practice, but a quick solution ;)
-	if (fitsHorizontal(loc[X_AXIS], loc[Y_AXIS],shipsize)) {
+	if (fitsHorizontal(loc[X_AXIS], loc[Y_AXIS],shipsize, grid)) {
 		horizontal = true;
 		return [loc, horizontal];
-	} else if (fitsVertical(loc[X_AXIS], loc[Y_AXIS], shipsize)){
+	} else if (fitsVertical(loc[X_AXIS], loc[Y_AXIS], shipsize, grid)){
 		horizontal = false;
 		return [loc, horizontal];
 	} else return [false];
@@ -191,7 +217,7 @@ function placeShips(fleet, grid){
 	for (var key in fleet){
 		if (fleet.hasOwnProperty(key)){
 			if (key != "isHit") {
-				while (!findValidPosition(fleet[key].size)[0]){}
+				while (!findValidPosition(fleet[key].size, grid)[0]){}
 				console.log(key + " : " + fleet[key].size); //debugging line
 				console.log("posXY : " + loc[0] + ", " + loc[1] + " is horizontal? " + horizontal);
 				putShipOnGrid(loc, fleet[key], horizontal, grid);	
@@ -199,6 +225,27 @@ function placeShips(fleet, grid){
 		}
 	}	
 }
+
+// Functions below are for gameplay
+
+function checkHit(pos, grid){
+	var row = pos[Y_AXIS];
+	var column = pos[X_AXIS];
+	if ((grid[row][column] != SPACER)||
+	   (grid[row][column] != HIT_X)||
+	   (grid[row][column] != MISS)) {
+		return true;
+	} else return false;
+}
+
+function updateGame(fleet, grid){
+	// get firing data
+	if (checkHit(pos, grid)) {
+		grid[pos[Y_AXIS]][pos[X_AXIS]] = "X";
+	} else grid[pos[Y_AXIS]][pos[X_AXIS]] = "O";
+}
+
+
 
 // Code below is for getting user input from the console.
 // var readline = require('readline');
@@ -219,10 +266,13 @@ console.log("show health: " + myFleet.battleship.health);
 console.log("show hit: " + myFleet.isHit(myFleet.battleship)); 
 var enemyFleet = new Fleet();
 console.log("show enemy : " + enemyFleet.battleship.health);
-grid = new Grid();
-displayGrid(grid);
-placeShips(myFleet, grid);
-displayGrid(grid);
+myGrid = new Grid();
+displayGrid(myGrid);
+placeShips(myFleet, myGrid);
+displayGrid(myGrid);
+enemyGrid = new Grid();
+placeShips(enemyFleet, enemyGrid);
+displayGrid(enemyGrid, true);
 showObjectProp(myFleet);
 
 // Refactored Code
