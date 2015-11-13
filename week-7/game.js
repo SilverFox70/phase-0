@@ -168,6 +168,8 @@ function displayGrid(grid, enemy) {
 /* Functions below handle placing and validating locations of fleet ships */
 // ------------------------------------------------------------------------
 
+// Checks if there is enough horizontal room in grid to place ship and also
+// makes sure that another ship is not in the way
 function fitsHorizontal(x, y, size, grid){
 	console.log("x : " + x + "\t size : " + size + " space : " + (GRID_SIZE - x) + "   t/f : " + ((GRID_SIZE - x) > size) );
 	var doesFit = ((GRID_SIZE - x) > size);
@@ -179,6 +181,8 @@ function fitsHorizontal(x, y, size, grid){
 	return doesFit;
 }
 
+// Checks if there is enough vertical room in grid to place ship and also
+// makes sure that another ship is not in the way
 function fitsVertical(x, y, size, grid){
 	console.log("y : " + y + "\t size : " + size + " space : " + (GRID_SIZE - y) + "   t/f : " + ((GRID_SIZE - y) > size) );
 	var doesFit = ((GRID_SIZE - y) > size);
@@ -190,11 +194,12 @@ function fitsVertical(x, y, size, grid){
 	return doesFit;
 }
 
+// finds a valid position for each ship on the grid
 function findValidPosition(shipsize, grid){
 	loc = posXY();      // I am cheating by letting these two variables exist beyond
 	horizontal = false; // of this method.  Bad practice, but a quick solution ;)
 	if (fitsHorizontal(loc[X_AXIS], loc[Y_AXIS],shipsize, grid)) {
-		horizontal = true;
+		horizontal = true; 
 		return [loc, horizontal];
 	} else if (fitsVertical(loc[X_AXIS], loc[Y_AXIS], shipsize, grid)){
 		horizontal = false;
@@ -202,6 +207,7 @@ function findValidPosition(shipsize, grid){
 	} else return [false];
 }
 
+// places the symbols for each ship in its location on the grid
 function putShipOnGrid(pos, ship, hor, grid){
 	if (hor){
 		for (var i = 0; i < ship.size; i++){
@@ -213,6 +219,9 @@ function putShipOnGrid(pos, ship, hor, grid){
 		}
 	}
 }
+
+// master function which iterates over all ships in a fleet, placing them
+// in valid positions on the playing grid
 function placeShips(fleet, grid){
 	for (var key in fleet){
 		if (fleet.hasOwnProperty(key)){
@@ -231,33 +240,83 @@ function placeShips(fleet, grid){
 function checkHit(pos, grid){
 	var row = pos[Y_AXIS];
 	var column = pos[X_AXIS];
-	if ((grid[row][column] != SPACER)||
-	   (grid[row][column] != HIT_X)||
-	   (grid[row][column] != MISS)) {
+	if ((grid[row][column] != EMPTY_SPACE)&&
+	    (grid[row][column] != HIT_X)&&
+	    (grid[row][column] != MISS)) {
 		return true;
 	} else return false;
 }
 
-function updateGame(fleet, grid){
-	// get firing data
-	if (checkHit(pos, grid)) {
-		grid[pos[Y_AXIS]][pos[X_AXIS]] = "X";
-	} else grid[pos[Y_AXIS]][pos[X_AXIS]] = "O";
+function updateFleet(letter, fleet) {
+	switch (letter) {
+		case "B":
+			fleet.isHit(fleet.battleship);
+			console.log("Battleship health: " + fleet.battleship.health);
+			break;
+		case "C":
+			fleet.isHit(fleet.cruiser);
+			console.log("Cruiser health: " + fleet.cruiser.health);
+			break;
+		case "D":
+			fleet.isHit(fleet.destroyer);
+			console.log("Destroyer health: " + fleet.destroyer.health);
+			break;	
+		case "S":
+			fleet.isHit(fleet.submarine);
+			console.log("Submarine health: " + fleet.submarine.health);
+			break;
+	}
 }
 
-
+function updateGame(fleet, grid, enemy){
+	// get firing data
+	if (enemy) {
+		var pos = posXY();
+	} else {
+		var pos = posXY();
+	}
+	console.log("row : " + pos[Y_AXIS] + "\t col : " + pos[X_AXIS]);
+	if (checkHit(pos, grid)) {
+		value_at_pos = grid[pos[Y_AXIS]][pos[X_AXIS]];
+		updateFleet(value_at_pos, fleet);
+		grid[pos[Y_AXIS]][pos[X_AXIS]] = "X";
+	} else grid[pos[Y_AXIS]][pos[X_AXIS]] = "O";
+	return grid;
+}
 
 // Code below is for getting user input from the console.
-// var readline = require('readline');
-// var rl = readline.createInterface(process.stdin, process.stdout);
-// rl.setPrompt("Guess > ");
-// rl.prompt();
-// rl.on('line', function(line){
-// 	if (line === "right") rl.close();
-// 	rl.prompt();
-// }).on('close', function(){
-// 	process.exit(0);
-// })
+// would require fitting all of the game play functions within
+// the structure of the callbacks in order to work because
+// of the asynchronous nature of JS execution.
+function getPlayerInput() {
+	var readline = require('readline');
+
+	var rl = readline.createInterface({
+	  input: process.stdin,
+	  output: process.stdout
+	});
+
+	rl.question("What do you think of Node.js? ", function(answer) {
+	  // TODO: Log the answer in a database
+	  process.stdin.pause();
+	  console.log("Thank you for your valuable feedback:", answer);
+
+	  rl.close();
+	});
+	
+}
+	// var readline = require('readline');
+	// var rl = readline.createInterface(process.stdin, process.stdout);
+	// rl.setPrompt("Target Coordinates [x, y] : ");
+	// rl.prompt();
+	// rl.on('line', function(line){
+	// 	if (line === "exit") rl.close();
+	// 	return line;
+	// 	//rl.prompt();
+	// }).on('close', function(){
+	// 	process.exit(0);
+
+
 
 // Driver Code
 console.log("Numbers: " + posXY());
@@ -274,6 +333,8 @@ enemyGrid = new Grid();
 placeShips(enemyFleet, enemyGrid);
 displayGrid(enemyGrid, true);
 showObjectProp(myFleet);
+myGrid = updateGame(myFleet, myGrid, false);
+displayGrid(myGrid);
 
 // Refactored Code
 
