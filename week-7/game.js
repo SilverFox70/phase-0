@@ -151,7 +151,7 @@ function displayGrid(grid, enemy) {
 			if ((!enemy)||(i == 0)||(j == 0)) {
 				process.stdout.write(grid[i][j] + SPACER);
 			} else {
-				if ((grid[i][j] != SPACER)||
+				if ((grid[i][j] != SPACER)||  // create a function to quickly check all of this
 					(grid[i][j] != HIT_X)||
 					(grid[i][j] != MISS)) {
 					process.stdout.write(EMPTY_SPACE + SPACER);
@@ -273,7 +273,7 @@ function updateGame(fleet, grid, enemy){
 	if (enemy) {
 		var pos = posXY();
 	} else {
-		var pos = posXY();
+		var pos = posXY(); // real version would get user input
 	}
 	console.log("row : " + pos[Y_AXIS] + "\t col : " + pos[X_AXIS]);
 	if (checkHit(pos, grid)) {
@@ -287,7 +287,9 @@ function updateGame(fleet, grid, enemy){
 // Code below is for getting user input from the console.
 // would require fitting all of the game play functions within
 // the structure of the callbacks in order to work because
-// of the asynchronous nature of JS execution.
+// of the asynchronous nature of JS execution.  The code you
+// see in here is just sample/test code put in during my futile
+// trouble shooting of this issue.
 function getPlayerInput() {
 	var readline = require('readline');
 
@@ -350,12 +352,18 @@ displayGrid(myGrid);
 
 What did you learn about creating objects and functions that interact with one another?
 
+	Wow!  I really miss not being able to creat classes!  It isn't terribly difficult to
+	do, but a lot of data is getting passed around between functions.
 
 
 Did you learn about any new built-in methods you could use in your refactored solution? 
 If so, what were they and how do they work?
 
-
+	I kind of gave up on finding built-in methods to fix issues after looking at some of 
+	JS api.  Really, the logic is pretty straight forward and refactoring in my case,
+	to do seriously, would amount to reworking the whole thing and creating classes.  But,
+	JS doesn't do classes, so maybe restructure to avoid passing so much data around 
+	between functions.
 
 How can you access and manipulate properties of objects?
 //
