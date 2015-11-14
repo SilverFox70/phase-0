@@ -17,18 +17,18 @@
 
 
 // Initial Solution
-// function separateComma(number){
-//   var result = [];
-//   var numArray = number.toString().split("").reverse();
-//   for (var i = 0 ; i < numArray.length; i++){
-//     if ((i % 3 === 0)&&( i !== 0)){
-//       result.push(",");
-//     }
-//     result.push(numArray[i]);
-//     console.log(result);
-//   }
-//   return result.reverse().join('');
-// }
+function separateComma(number){
+  var result = [];
+  var numArray = number.toString().split("").reverse();
+  for (var i = 0 ; i < numArray.length; i++){
+    if ((i % 3 === 0)&&( i !== 0)){
+      result.push(",");
+    }
+    result.push(numArray[i]);
+    console.log(result);
+  }
+  return result.reverse().join('');
+}
 
 
 
