@@ -349,7 +349,7 @@ displayGrid(myGrid);
 // What was the most difficult part of this challenge?
 
 
-
+/*
 What did you learn about creating objects and functions that interact with one another?
 
 	Wow!  I really miss not being able to creat classes!  It isn't terribly difficult to
@@ -366,10 +366,10 @@ If so, what were they and how do they work?
 	between functions.
 
 How can you access and manipulate properties of objects?
-//
-//
-//
-//
-//
-//
-//
+
+	You can use dot or bracket notation to access object properties.  You can iterate through
+	an object's properties using "for (var key in obj)" loop to cycle through properties, 
+	although you should include a check for obj.hasOwnProperty in order to avoid capturing
+	any properties that might belong to the object Prototype.  You can use functions or direct
+	expressions to alter the values of properties of an object.
+*/
