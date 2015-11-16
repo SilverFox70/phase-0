@@ -87,3 +87,33 @@ display_all_state_info
 
 #=======================================================================
 # Reflection Section
+What are the differences between the two different hash syntaxes shown in the state_data file?
+
+  In one case the keys are strings and in the second case the keys are symbols.  Symbols are
+  immutable and are not created as objects each time in the hash, so it improves performance
+  and saves memory.
+
+What does require_relative do? How is it different from require?
+
+  require_relative looks for a file within the directory, and as such, you don't need to specify
+  a file extension.  "Require" on the other needs to have a full directory path and file extension
+  in order to find the file in question.
+
+What are some ways to iterate through a hash?
+
+  You can iterate through a hash using each.  You can iterate through just the keys by saying 
+  my_hash.keys.each or at just the values with my_hash.values.each.  If you use my_hash.each and only
+  provide one variable in the pipes, that variable will hold the key/value pair.  If you declare two
+  variables in the pipes, then the first will represent the keys and the second will represent the
+  values.
+
+When refactoring virus_effects, what stood out to you about the variables, if anything?
+
+  That speed and number_of_deaths could be made into instance variables!  Also, that the initialize
+  method does not actually need all of those discreet elements of data to be passed in since STATE_DATA
+  is accessible globally.
+
+What concept did you most solidify in this challenge?
+
+  This challenge really helped me with seeing refactoring possibilities.
+
