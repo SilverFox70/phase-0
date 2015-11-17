@@ -76,7 +76,7 @@ class CreditCard
 
 end
 
-# Driver code
+#  Original Driver code
 # my_card = CreditCard.new(4563960122001999)
 # p my_card.double_every_other_digit
 # p " split doubles : #{my_card.split_double_digits}"
@@ -85,6 +85,16 @@ end
 # p my_card.double_every_other_digit
 # p " split doubles : #{my_card.split_double_digits}"
 # p "check card #{my_card.check_card}"
+
+# Driver code to test Assert Statements
+def assert
+  raise "Assertion Failed" unless yield
+end
+
+my_card = CreditCard.new(4408041234567901)
+assert {my_card.double_every_other_digit == [8, 4, 0, 8, 0, 4, 2, 2, 6, 4, 10, 6, 14, 9, 0, 1]}
+assert {my_card.split_double_digits == [8, 4, 0, 8, 0, 4, 2, 2, 6, 4, 1, 0, 6, 1, 4, 9, 0, 1]}
+assert {my_card.check_card == true}
 
 
 # Refactored Solution
