@@ -1,7 +1,7 @@
 // Tally Votes in JavaScript Pairing Challenge.
 
-// I worked on this challenge with:
-// This challenge took me [#] hours.
+// I worked on this challenge with Chris Gomes:
+// This challenge took me [3.25] hours.
 
 // These are the votes cast by each student. Do not alter these objects here.
 var votes = {
@@ -75,6 +75,101 @@ var officers = {
 
 // __________________________________________
 // Initial Solution
+
+// Initialize voteCount so that every student is represented
+// and given an initial vote count of 0
+// function initCounter() {
+//   for (var students in votes){
+//     if (votes.hasOwnProperty(students)){
+//       for (var pos in voteCount) {
+//         if (voteCount.hasOwnProperty(pos)){
+//           voteCount[pos][students] = 0;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// Initialize values in voteCount
+// initCounter();
+
+// Iterate over all of the votes in "votes" and if
+// a student's name appears, update their vote tally
+// for (var students in votes) {
+//   console.log("students: " + students); // debugging line
+//     if (votes.hasOwnProperty(students)){
+//       var obj = votes[students];
+//       console.log("as obj: " + obj);
+//       for (var position in obj) {
+//         if (obj.hasOwnProperty(position)){
+//           // display values for debugging purposes
+//           process.stdout.write(students + " : " + position + "\t" + votes[students][position]);
+//           var name = votes[students][position];
+//           for (var n in voteCount[position]){
+//             if (voteCount[position].hasOwnProperty(n)){
+//               if (n == name) {
+//                 voteCount[position][name] += 1;
+              
+//               }
+//             }
+//           }    
+//         }
+//       }
+//       console.log("\n"); // make debugging output look prettier
+//     }
+// }
+
+// debugging tool to view all results
+// for (var pos in voteCount) {
+//   if (voteCount.hasOwnProperty(pos)){
+//     for (var student in voteCount[pos]){
+//       if (voteCount[pos].hasOwnProperty(student)){
+//         console.log(pos + " " + student + ": " + voteCount[pos][student]);
+//       }
+
+//     }
+
+//   }
+// }
+
+// function findWinners() {
+//   for (var pos in voteCount) {
+//     if (voteCount.hasOwnProperty(pos)){
+//       var count = 0;
+//       for (var student in voteCount[pos]){
+//         if (voteCount[pos].hasOwnProperty(student)){
+//           var numberOfVotes = voteCount[pos][student]
+//           console.log(pos + " " + student + ": " + numberOfVotes + " count= " + count);
+//           if (numberOfVotes > count) {
+//             count = numberOfVotes;
+//             officers[pos] = student;
+//             console.log(student + " is now the current leader");
+//           }
+//         }
+//       }
+//       console.log("winner of " + pos + " is " + officers[pos]);
+//     }
+//   }
+// }
+
+// findWinners();
+
+// function displayWinners() {
+//   for (var position in officers){
+//     if (officers.hasOwnProperty(position)){
+//       console.log(officers[position] + " is the new " + position);
+//     }
+//   }
+// }
+
+// displayWinners();
+
+
+// __________________________________________
+// Refactored Solution
+
+// Initialize voteCount so that every student is represented
+// and given an initial vote count of 0
 function initCounter() {
   for (var students in votes){
     if (votes.hasOwnProperty(students)){
@@ -86,69 +181,105 @@ function initCounter() {
     }
   }
 }
-initCounter();
-for (var students in votes) {
-  console.log("students: " + students);
-    if (votes.hasOwnProperty(students)){
-        var obj = votes[students];
-        console.log("as obj: " + obj);
-        for (var position in obj) {
-            if (obj.hasOwnProperty(position)){
-                process.stdout.write(students + " : " + position + "\t" + votes[students][position]);
-                var name = votes[students][position];
-                for (var n in voteCount[position]){
-                  if (voteCount[position].hasOwnProperty(n)){
-                    if (n == name) {
-                      voteCount[position][name] += 1;
-                    
-                    }
-                  }
-                }
-                
-            }
-        }
-        console.log("\n");
+
+// given a name (person voted for) and a position (role voted for)
+// this will update the vote count for that person for that role
+function addVote(name, position){
+  for (var n in voteCount[position]){
+    if (voteCount[position].hasOwnProperty(n)){
+      if (n == name) {
+        voteCount[position][name] += 1;
+      }
     }
+  } 
 }
 
-
-var count = 0;
-for (var pos in voteCount) {
-        if (voteCount.hasOwnProperty(pos)){
-          for (var prop in voteCount[pos]){
-            if (voteCount[pos].hasOwnProperty(prop)){
-              console.log(pos + " " + prop + ": " + voteCount[pos][prop]);
-            }
-
-          }
-
+// Iterate over all of the votes in "votes" and if
+// a student's name appears, update their vote tally
+function tallyStudentVotes() {
+  for (var students in votes) {
+    if (votes.hasOwnProperty(students)){
+      var obj = votes[students];
+      for (var position in obj) {
+        if (obj.hasOwnProperty(position)){
+          var name = votes[students][position];
+          addVote(name, position);  
         }
+      }
+    }
+  }
+}
+
+// debugging tool to view all results
+function showAllStudentVotes() {
+  for (var pos in voteCount) {
+    if (voteCount.hasOwnProperty(pos)){
+      for (var student in voteCount[pos]){
+        if (voteCount[pos].hasOwnProperty(student)){
+          console.log(pos + " " + student + ": " + voteCount[pos][student]);
+        }
+      }
+    }
+  }
 }
 
 
+// Iterate through voteCount and find those students with the 
+// greatest number of votes for each position
+function findWinners() {
+  for (var pos in voteCount) {
+    if (voteCount.hasOwnProperty(pos)){
+      var count = 0;
+      for (var student in voteCount[pos]){
+        if (voteCount[pos].hasOwnProperty(student)){
+          var numberOfVotes = voteCount[pos][student]
+          if (numberOfVotes > count) {
+            count = numberOfVotes;
+            officers[pos] = student;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Iterate through "officers" and display the student's name
+// and position
+function displayWinners() {
+  for (var position in officers){
+    if (officers.hasOwnProperty(position)){
+      console.log(officers[position] + " is the new " + position);
+    }
+  }
+}
 
 
+initCounter();  // Initialize values in voteCount
+tallyStudentVotes();  //count all the votes for each student in each race in "voteCount"
+findWinners();  //find the students with the most votes and update "officers"
+displayWinners(); //display the names of all of the winners and their positions
 
-
-
-// __________________________________________
-// Refactored Solution
-// terah.children = {};
-// terah.children.carson = {name: "Carson",};
-// terah.children.carter = {name: "Carter",};
-// terah.children.colton = {name: "Colton",};
-// var carson = {};
-// terah.children.carson = carson;
-// carson.name = "Carson";
-
-//$.extend(vountCount.prop, newthing);
 
 
 // __________________________________________
 // Reflection
 // What did you learn about iterating over nested objects in JavaScript?
+//   It can be tricky to keep track of Objects versus values and whether 
+//   dot notation or bracketing will get you to the piece of information
+//   you are actually looking for.  I think this was one of the biggest
+//   stumbling blocks we had.  The other issue was figuring out how to 
+//   add the values to the keys for the appropriate level of nesting
+//   within the object.
+
 // Were you able to find useful methods to help you with this?
+//   I don't think we uncovered any useful methods; this was all pretty
+//   straight forward logic that we used.  If we had converted certain
+//   data structures to arrays we might have been able to employ more
+//   JS functions.
+
 // What concepts were solidified in the process of working through this challenge?
+//   I don't know if they were entirely solidified, but we certainly became more
+//   familiar with iterate through objects and accessing their keys and values.
 
 
 
@@ -156,7 +287,7 @@ for (var pos in voteCount) {
 
 // __________________________________________
 // Test Code:  Do not alter code below this line.
-/*
+
 
 function assert(test, message, test_number) {
   if (!test) {
@@ -213,4 +344,4 @@ assert(
   (officers.treasurer === "Ivy"),
   "Ivy should be elected Treasurer.",
   "8. "
-)*/
+)
