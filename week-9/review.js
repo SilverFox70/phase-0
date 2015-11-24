@@ -47,19 +47,27 @@ function groceryList(listName) {
   } else {
   	this.listName = "My List";
   }
-  this.item = { name: undefined, quantity: undefined}
+  this.list = {}
   this.addItem = function(itemName, qty) {
-  	item.name = itemName;
-  	item.quantity = qty;
+  	this.list[itemName] = qty;
   }
   this.updateItem = function(itemName, qty) {
   	//find item in list and change the quantity to equal qty
+  	if (this.list[itemName] !== undefined){
+  		console.log("found! " + this.list[itemName] + "  " + this.list.itemName)
+  	}
   }
   this.removeItem = function(itemName){
   	//find item in list and delete it
   }
   this.displayList = function() {
   	//display the list in a readable format
+  	console.log(this.listName);
+  	for (var item in this.list){
+  		if (this.list.hasOwnProperty(item)){
+  			console.log("item: " + item + "\t" + "qty: " + this.list[item]);
+  		}
+  	}
   }
 }
 
@@ -71,5 +79,7 @@ console.log("List name is : " + newList.listName);
 anotherList = new groceryList("Tuesday's list");
 console.log("List name is : " + anotherList.listName);
 anotherList.addItem("eggs", "12");
-console.log("List item : " + anotherList.item.name + "\t" + anotherList.item.quantity);
+anotherList.addItem("apples", "4");
+anotherList.displayList();
+anotherList.updateItem("apples");
 
