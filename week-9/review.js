@@ -36,11 +36,6 @@ work properly and as expected
 
 //Initial solution below
 /*
-function isValid(str) {
-	return str.replace(/^\s+/g,"").length; //boolean = true if str is empty
-}
-*/
-
 function groceryList(listName) {
   if (listName !== undefined) {	
 	this.listName = listName;
@@ -51,17 +46,29 @@ function groceryList(listName) {
   this.addItem = function(itemName, qty) {
   	this.list[itemName] = qty;
   }
+
+  //find item in list and change the quantity to equal qty
   this.updateItem = function(itemName, qty) {
-  	//find item in list and change the quantity to equal qty
   	if (this.list[itemName] !== undefined){
-  		console.log("found! " + this.list[itemName] + "  " + this.list.itemName)
+  		console.log("Found! " + this.list[itemName] + "  " + itemName);
+  		this.list[itemName] = qty;
+  		console.log("Updating to " + this.list[itemName] + " " + itemName);
+  	} else {
+  		console.log("Sorry, could not find: " + itemName);
   	}
   }
+
+  //find item in list and delete it
   this.removeItem = function(itemName){
-  	//find item in list and delete it
+  	if (this.list[itemName] !== undefined){
+      delete this.list[itemName];
+    }  else {
+      console.log("Sorry, could not find: " + itemName);
+    }	
   }
+
+  //display the list in a readable format
   this.displayList = function() {
-  	//display the list in a readable format
   	console.log(this.listName);
   	for (var item in this.list){
   		if (this.list.hasOwnProperty(item)){
@@ -69,7 +76,55 @@ function groceryList(listName) {
   		}
   	}
   }
+}*/
+
+// Refactored code
+function groceryList(listName) {
+  if (listName !== undefined) {	
+	this.listName = listName;
+  } else {
+  	this.listName = "My List"; // default list name if none given
+  }
+  this.list = {}
+  this.addItem = function(itemName, qty) {
+  	this.list[itemName] = qty;
+  }
+
+  //find item in list and change the quantity to equal qty
+  this.updateItem = function(itemName, qty) {
+  	if (this.list[itemName] !== undefined){
+	  this.list[itemName] = qty;
+  	} else {
+  	  this.notFoundError(itemName);
+  	}
+  }
+
+  //find item in list and delete it
+  this.removeItem = function(itemName){
+  	if (this.list[itemName] !== undefined){
+      delete this.list[itemName];
+    }  else {
+      this.notFoundError(itemName);
+    }	
+  }
+
+  //display the list in a readable format
+  this.displayList = function() {
+  	console.log(this.listName);
+  	for (var item in this.list){
+  	  if (this.list.hasOwnProperty(item)){
+  		console.log("item: " + item + "\t" + "qty: " + this.list[item]);
+ 	  }
+  	}
+  };
+
+  // Show error message to console if item not found
+  this.notFoundError = function(itemName) {
+  	console.log("Sorry, could not find: " + itemName);
+  }
 }
+
+
 
 
 // Driver code
@@ -81,5 +136,8 @@ console.log("List name is : " + anotherList.listName);
 anotherList.addItem("eggs", "12");
 anotherList.addItem("apples", "4");
 anotherList.displayList();
-anotherList.updateItem("apples");
+anotherList.updateItem("apples", "5");
+anotherList.updateItem("figs");
+anotherList.removeItem("eggs");
+anotherList.displayList();
 
