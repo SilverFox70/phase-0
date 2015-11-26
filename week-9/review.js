@@ -141,3 +141,25 @@ anotherList.updateItem("figs");
 anotherList.removeItem("eggs");
 anotherList.displayList();
 
+// Reflection
+/*
+What concepts did you solidify in working on this challenge? (reviewing
+the passing of information, objects, constructors, etc.)
+
+	It was good practice ot build a constructor and add propertie and methods to
+	a JS object.  It definitely helped to make adding properties more clear.
+
+What was the most difficult part of this challenge?
+
+	Not thinking in Ruby! LOL Once I got past that, it was pretty straight
+	forward. I wonder if I am missing opportunities to use built in JS
+	functions to help with the functions I wrote, but it is also very
+	straight forward, so I don't think so.
+
+Did an array or object make more sense to use and why?
+
+	I liked the idea of using an object, although I can see the argument
+	for using an array, too.  I feel like there is more room for error
+	if you use an array. 
+
+*/
